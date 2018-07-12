@@ -5,8 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
+awsebcli = "*"
 
 [dev-packages]
+awsebcli = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.6.5"
