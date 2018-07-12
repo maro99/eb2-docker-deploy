@@ -22,7 +22,7 @@ BASE_DIR =os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# # SECURITY WARNING: keep the secret key used in production secret!
+# # # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = '34u3do=@oa_$lhpflkswc81_vu$+1784!l(^zpfo1e(y05j#ln'
 
 
@@ -37,12 +37,14 @@ SECRET_KEY = data["SECRET_KEY"]
 DEBUG = True
 
 
-# ALLOWED_HOSTS = []
 
+
+AUTH_USER_MODEL = 'members.User'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'members',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,6 +131,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 
