@@ -6,9 +6,12 @@ name = "pypi"
 [packages]
 django = "*"
 awsebcli = "*"
+uwsgi = "*"
 
 [dev-packages]
 awsebcli = "*"
+ipython = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.6.5"

@@ -11,7 +11,7 @@ ALLOWED_HOSTS = []
 # MEDIA_URL ='/media/'
 
 # wsgi
-WSGI_APPLICATION = 'config.wsgi.local.application'
+WSGI_APPLICATION = 'config.wsgi.dev.application'
 
 # DB
 DATABASES = {
