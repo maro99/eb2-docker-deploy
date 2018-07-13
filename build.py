@@ -59,6 +59,16 @@ def build_dev():
         # 끝난 후 requirements,txt파일 삭제.
         os.remove('requirements.txt')
 
+def build_production():
+    try:
+        # pipenv lock으로 requirements.txt.생성
+        subprocess.call('pipenv lock --requirements > requirements.txt',shell=True)
+        # docker.build
+        subprocess.call('docker build -t eb-docker:production -f Dockerfile.production .', shell=True)
+
+    finally:
+        # 끝난 후 requirements,txt파일 삭제.
+        os.remove('requirements.txt')
 
 
 
@@ -66,13 +76,13 @@ def build_dev():
 if __name__ =='__main__':
 
 
-    MODES = ['base','local','dev']
+    MODES = ['base','local','dev','production']
 
     # ./build.py --mode <mode>
     # ./build.py -m<mode>
     parser = argparse.ArgumentParser()
     parser.add_argument('-m','--mode',
-                        help ='Docker build mode[base,locall,dev]'
+                        help ='Docker build mode[{}]'.format(','.join(MODES))
                         )
 
     args = parser.parse_args()
@@ -85,17 +95,18 @@ if __name__ =='__main__':
     #옵션을 입력하지 않았을 경우(./build/.py)
     else:
         while True:
+
             print('Select mode')
-            print('1. base')
-            print('2. local')
-            print('3. dev')
+            for index, mode_name in enumerate(MODES, start=1):
+                print(f'{index}. {mode_name}')
             selected_mode = input('Choice: ')
 
             try:
                 mode_index = int(selected_mode)-1
                 mode = MODES[mode_index]
+                break
             except IndexError:
-                print('1~3번을 입력하세요')
+                print('1~4번을 입력하세요')
 
     # 선택된 mode에 해당하는 함수를 실행
     mode_function(mode)
