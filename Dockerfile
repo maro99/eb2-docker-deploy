@@ -30,6 +30,9 @@ COPY            .   ${PROJECT_DIR}
 #WORKDIR         ${PROJECT_DIR}
 
 
+# 로그파일 기록 위한 폴ㄷ더 생성
+RUN             mkdir /var/log/django
+
 # Ngnix config
 RUN         cp -f ${PROJECT_DIR}/.config/${BUILD_MODE}/nginx.conf \
                   /etc/nginx/nginx.conf && \
