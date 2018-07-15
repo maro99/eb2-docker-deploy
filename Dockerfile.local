@@ -8,4 +8,3 @@ ENV                 DJANGO_SETTINGS_MODULE  config.settings.${BUILD_MODE}
 COPY                . /srv/project
 
 WORKDIR             /srv/proejct/app
-#CMD                 /
