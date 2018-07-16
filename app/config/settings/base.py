@@ -28,10 +28,24 @@ BASE_DIR =os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
 SECRET_DIR =os.path.join(ROOT_DIR,'.secrets')
+
 json_data = open(f'{SECRET_DIR}/base.json').read()
 data = json.loads(json_data)
 SECRET_KEY = data["SECRET_KEY"]
 
+
+# Static
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
+
+#media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
+
+
+STATIC_DIR = os.path.join(BASE_DIR ,'static')
+STATICFILES_DIR=os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [STATIC_DIR] #
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True

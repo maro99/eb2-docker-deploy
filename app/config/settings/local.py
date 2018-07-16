@@ -24,7 +24,6 @@ DATABASES = {
 STATIC_URL = '/static/'
 
 
-
 # LOG_DIR = os.path.join(ROOT_DIR, 'log') #이부분 왜 애러뜨지?
 # LOG_DIR='/var/log/'
 # LOGGING = {

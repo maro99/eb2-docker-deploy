@@ -1,31 +1,60 @@
+import sys
+
 from .base import *
 
-secrets =  json.load(open(os.path.join(SECRET_DIR,'production.json')))
+secrets = json.load(open(os.path.join(SECRET_DIR,'production.json')))
 
+# Django가 runserver로 켜졌는지 확인
+RUNSERVER = sys.argv[1] == 'runserver'
 DEBUG = False
-ALLOWED_HOSTS =secrets['ALLOWED_HOSTS']
+ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 
-# Static
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(ROOT_DIR, '.static')
-# EC2_DEPLOY = os.path.dirname(BASE_DIR)
-# MEDIA_ROOT = os.path.join(EC2_DEPLOY,'.media')
-# MEDIA_URL ='/media/'
+# runserver로 production환경을 실행할 경우.
+if RUNSERVER:
+    DEBUG = True
+    ALLOWED_HOSTS=[
+        'localhost',
+        '127.0.0.1',
+    ]
+
+
+
+# django-storages
+INSTALLED_APPS += [
+   'storages',
+]
+
+# AWS
+AWS_ACCESS_KEY_ID = secrets['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = secrets['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = secrets['AWS_STORAGE_BUCKET_NAME']
+AWS_DEFAULT_ACL = secrets['AWS_DEFAULT_ACL']
+AWS_S3_REGION_NAME = secrets['AWS_S3_REGION_NAME']
+AWS_S3_SIGNATURE_VERSION = secrets['AWS_S3_SIGNATURE_VERSION']
+
+
+
+# DB
+DATABASES = secrets['DATABASES']
+STATIC_URL = '/static/'
+print(DATABASES)
 
 # wsgi
 WSGI_APPLICATION = 'config.wsgi.production.application'
 
-# DB
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# Media
+DEFAULT_FILE_STORAGE = "config.storages.S3DefaultStorage"
+# STATICFILES_STORAGE = 'config.storages.S3StaticStorage'
 
-STATIC_URL = '/static/'
 
 LOG_DIR = '/var/log/django'
+if not os.path.exists(LOG_DIR):
+    LOG_DIR = os.path.join(ROOT_DIR, '.log')
+    if not os.path.exists(LOG_DIR):
+        os.makedirs(LOG_DIR)
+
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
