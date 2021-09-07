@@ -20,7 +20,7 @@ idna==2.6
 jmespath==0.9.3
 jsonschema==2.6.0
 pathspec==0.5.5
-pillow==5.2.0
+pillow==8.3.2
 psycopg2-binary==2.7.5
 python-dateutil==2.7.3; python_version >= '2.7'
 pytz==2018.5
